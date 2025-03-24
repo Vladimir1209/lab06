@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/Vladimir1209/lab04.svg?branch=master)](https://travis-ci.com/Vladimir1209/lab04)
 #Labwork2
 
 #Перенос файлов на GitHub
