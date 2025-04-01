@@ -63,10 +63,10 @@ Done installing documentation for faraday-multipart, faraday-httpclient, faraday
 10 gems installed
 ```
 ```bash
-root@LabPythonVM:/home/student/Vladimir1209/workspace# git clone https://github.com/${GITHUB_USERNAME}/lab03 projects/lab04
+root@LabPythonVM:/home/student/Vladimir1209/workspace# git clone https://github.com/${GITHUB_USERNAME}/lab03 projects/lab05
 ```
 ```sh
-Клонирование в «projects/lab04»...
+Клонирование в «projects/lab05»...
 remote: Enumerating objects: 19, done.
 remote: Counting objects: 100% (19/19), done.
 remote: Compressing objects: 100% (13/13), done.
@@ -75,14 +75,14 @@ remote: Total 19 (delta 2), reused 19 (delta 2), pack-reused 0 (from 0)
 Определение изменений: 100% (2/2), готово.
 ```
 ```bash
-root@LabPythonVM:/home/student/Vladimir1209/workspace# cd projects/lab04
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# ls
+root@LabPythonVM:/home/student/Vladimir1209/workspace# cd projects/lab05
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# ls
 CMakeLists.txt	examples  include  README.md  sources
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# git remote remove origin
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# git remote add origin https://github.com/${GITHUB_USERNAME}/lab04
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# git remote remove origin
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# git remote add origin https://github.com/${GITHUB_USERNAME}/lab05
 ```
 ```sh
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# cat > .travis.yml <<EOF
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# cat > .travis.yml <<EOF
 ```
 ```sh
 > language: cpp
@@ -100,20 +100,20 @@ root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# cat > .tra
 > EOF
 ```
 ```sh
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# travis login --github-token ${GITHUB_TOKEN}
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# travis lint
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# ex -sc '1i|[![Build Status](https://travis-ci.com/'"${GITHUB_USERNAME}"'/lab04.svg?branch=master)](https://travis-ci.com/'"${GITHUB_USERNAME}"'/lab04)' -cx README.md
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# travis login --github-token ${GITHUB_TOKEN}
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# travis lint
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# ex -sc '1i|[![Build Status](https://travis-ci.com/'"${GITHUB_USERNAME}"'/lab05.svg?branch=master)](https://travis-ci.com/'"${GITHUB_USERNAME}"'/lab05)' -cx README.md
 ```
 ```sh
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# git add .travis.yml
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# git add README.md
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# git commit -m"added CI"
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# git add .travis.yml
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# git add README.md
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# git commit -m"added CI"
 ```
 ```sh
 [master f0bd37c] added CI
  2 files changed, 13 insertions(+)
  create mode 100644 .travis.yml
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# git push origin master
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# git push origin master
 Username for 'https://github.com': Vladimir1209
 Password for 'https://Vladimir1209@github.com': 
 Перечисление объектов: 23, готово.
@@ -123,15 +123,15 @@ Password for 'https://Vladimir1209@github.com':
 Запись объектов: 100% (23/23), 4.18 КиБ | 4.18 МиБ/с, готово.
 Всего 23 (изменений 4), повторно использовано 17 (изменений 2), повторно использовано пакетов 0
 remote: Resolving deltas: 100% (4/4), done.
-To https://github.com/Vladimir1209/lab04
+To https://github.com/Vladimir1209/lab05
  * [new branch]      master -> master
 ```
 ```bash
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab04# popd
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab05# popd
 /home/student/Vladimir1209/workspace
 root@LabPythonVM:/home/student/Vladimir1209/workspace# export LAB_NUMBER=04
 root@LabPythonVM:/home/student/Vladimir1209/workspace# git clone https://github.com/tp-labs/lab${LAB_NUMBER} tasks/lab${LAB_NUMBER}
-Клонирование в «tasks/lab04»...
+Клонирование в «tasks/lab05»...
 remote: Enumerating objects: 84, done.
 remote: Counting objects: 100% (3/3), done.
 remote: Compressing objects: 100% (3/3), done.
