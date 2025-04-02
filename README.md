@@ -1,145 +1,215 @@
-#Labwork04
-Установка rvm
-```bash
-root@LabPythonVM:/home/student/Vladimir1209/workspace# \curl -sSL https://get.rvm.io | bash -s -- --ignore-dotfiles
-```
+## Laboratory work VI
 
-```sh
-root@LabPythonVM:/home/student/Vladimir1209/workspace# echo "source /usr/local/rvm/scripts/rvm" >> scripts/activate
-root@LabPythonVM:/home/student/Vladimir1209/workspace# pushd .
-root@LabPythonVM:/home/student/Vladimir1209/workspace# source scripts/activate
-```
-Установка производилась с помощью openSSl
-```sh
-root@LabPythonVM:/home/student/Vladimir1209/workspace# wget https://www.openssl.org/source/old/1.0.2/openssl-1.0.2u.tar.gz
-root@LabPythonVM:/home/student/Vladimir1209/workspace# tar xzf openssl-1.0.2u.tar.gz
-root@LabPythonVM:/home/student/Vladimir1209/workspace# cd openssl-1.0.2u
-root@LabPythonVM:/home/student/Vladimir1209/workspace/openssl-1.0.2u# ./config --prefix=/usr/local/openssl-1.0.2 shared
-```
-```sh
-root@LabPythonVM:/home/student/Vladimir1209/workspace/openssl-1.0.2u# make
-
-root@LabPythonVM:/home/student/Vladimir1209/workspace/openssl-1.0.2u# sudo make install
-
-rvm install 2.4.2 --with-openssl-dir=/usr/local/openssl-1.0.2
-```
-Установка ruby-2.4.2
+##Подготовка рабочей директории 
 ```bash
-ruby-2.4.2 - #removing src/ruby-2.4.2..
-```
-```sh
-Installing Ruby from source to: /usr/local/rvm/rubies/ruby-2.4.2, this may take a while depending on your cpu(s)...
-ruby-2.4.2 - #downloading ruby-2.4.2, this may take a while depending on your connection...
-ruby-2.4.2 - #extracting ruby-2.4.2 to /usr/local/rvm/src/ruby-2.4.2.....
-ruby-2.4.2 - #configuring...........................................................-
-ruby-2.4.2 - #post-configuration..
-ruby-2.4.2 - #compiling..............................................................
-ruby-2.4.2 - #installing...........
-ruby-2.4.2 - #making binaries executable..
-ruby-2.4.2 - #downloading rubygems-3.0.9
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100  865k  100  865k    0     0  1949k      0 --:--:-- --:--:-- --:--:-- 1949k
-No checksum for downloaded archive, recording checksum in user configuration.
-ruby-2.4.2 - #extracting rubygems-3.0.9.....
-ruby-2.4.2 - #removing old rubygems........
-ruby-2.4.2 - #installing rubygems-3.0.9.............................................-
-ruby-2.4.2 - #gemset created /usr/local/rvm/gems/ruby-2.4.2@global
-ruby-2.4.2 - #importing gemset /usr/local/rvm/gemsets/global.gems...................-
-ruby-2.4.2 - #generating global wrappers........
-ruby-2.4.2 - #gemset created /usr/local/rvm/gems/ruby-2.4.2
-ruby-2.4.2 - #importing gemsetfile /usr/local/rvm/gemsets/default.gems evaluated to empty gem list
-ruby-2.4.2 - #generating default wrappers........
-ruby-2.4.2 - #adjusting #shebangs for (gem irb erb ri rdoc testrb rake).
-Install of ruby-2.4.2 - #complete 
-Ruby was built without documentation, to build it run: rvm docs generate-ri
-```
-```sh
-root@LabPythonVM:/home/student/Vladimir1209/workspace# rvm use 2.4.2 --default
-root@LabPythonVM:/home/student/Vladimir1209/workspace# gem install travis -v 1.10.0
-```
-```sh
-Done installing documentation for faraday-multipart, faraday-httpclient, faraday-excon, faraday-em_synchrony, faraday-em_http, faraday, faraday_middleware, gh, highline, travis after 2 seconds
-10 gems installed
-```
-```bash
-root@LabPythonVM:/home/student/Vladimir1209/workspace# git clone https://github.com/${GITHUB_USERNAME}/lab03 projects/lab06
-```
-```sh
+root@LabPythonVM:/home/student/Vladimir1209/workspace# git clone https://github.com/${GITHUB_USERNAME}/lab05 projects/lab06
 Клонирование в «projects/lab06»...
-remote: Enumerating objects: 19, done.
-remote: Counting objects: 100% (19/19), done.
-remote: Compressing objects: 100% (13/13), done.
-remote: Total 19 (delta 2), reused 19 (delta 2), pack-reused 0 (from 0)
-Получение объектов: 100% (19/19), готово.
-Определение изменений: 100% (2/2), готово.
-```
-```bash
+remote: Enumerating objects: 42, done.
+remote: Counting objects: 100% (42/42), done.
+remote: Compressing objects: 100% (23/23), done.
+remote: Total 42 (delta 11), reused 42 (delta 11), pack-reused 0 (from 0)
+Получение объектов: 100% (42/42), 8.94 КиБ | 8.94 МиБ/с, готово.
+Определение изменений: 100% (11/11), готово.
 root@LabPythonVM:/home/student/Vladimir1209/workspace# cd projects/lab06
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# ls
-CMakeLists.txt	examples  include  README.md  sources
 root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git remote remove origin
 root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git remote add origin https://github.com/${GITHUB_USERNAME}/lab06
 ```
-```sh
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cat > .travis.yml <<EOF
-```
-```sh
-> language: cpp
-> script:
-- cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install
-- cmake --build _build
-- cmake --build _build --target install
-> addons:
-  apt:
-    sources:
-      - george-edison55-precise-backports
-    packages:
-      - cmake
-      - cmake-data
+##Настройка Cmake
+```bash
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# gsed -i '/project(print)/a\
+> set(PRINT_VERSION_STRING "v\${PRINT_VERSION}")
+' CMakeLists.txt
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# gsed -i '/project(print)/a\
+> set(PRINT_VERSION\
+  \${PRINT_VERSION_MAJOR}.\${PRINT_VERSION_MINOR}.\${PRINT_VERSION_PATCH}.\${PRINT_VERSION_TWEAK})
+' CMakeLists.txt
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# gsed -i '/project(print)/a\
+> set(PRINT_VERSION_TWEAK 0)
+' CMakeLists.txt
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# gsed -i '/project(print)/a\
+> set(PRINT_VERSION_TWEAK 0)
+' CMakeLists.txt
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# gsed -i '/project(print)/a\
+> set(PRINT_VERSION_PATCH 0)
+' CMakeLists.txt
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# gsed -i '/project(print)/a\
+> set(PRINT_VERSION_MINOR 1)
+' CMakeLists.txt
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# gsed -i '/project(print)/a\
+> set(PRINT_VERSION_MAJOR 0)
+' CMakeLists.txt
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git diff
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0753258..6798547 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -8,6 +8,14 @@ option(BUILD_TESTS "Build tests" OFF)
+ option(BUILD_TESTS "Build tests" OFF)
+ 
+ project(print)
++set(PRINT_VERSION_MAJOR 0)
++set(PRINT_VERSION_MINOR 1)
++set(PRINT_VERSION_PATCH 0)
++set(PRINT_VERSION_TWEAK 0)
++set(PRINT_VERSION_TWEAK 0)
++set(PRINT_VERSION
++  ${PRINT_VERSION_MAJOR}.${PRINT_VERSION_MINOR}.${PRINT_VERSION_PATCH}.${PRINT_VERSION_TWEAK})
++set(PRINT_VERSION_STRING "v${PRINT_VERSION}")
+ 
+ add_library(print STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sources/print.cpp)
+ 
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# touch DESCRIPTION && edit DESCRIPTION
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# touch ChangeLog.md
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# export DATE="`LANG=en_US date +'%a %b %d %Y'`"
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cat > ChangeLog.md <<EOF
+> * ${DATE} ${GITHUB_USERNAME} <${GITHUB_EMAIL}> 0.1.0.0
+- Initial RPM release
 > EOF
 ```
-```sh
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# travis login --github-token ${GITHUB_TOKEN}
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# travis lint
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# ex -sc '1i|[![Build Status](https://travis-ci.com/'"${GITHUB_USERNAME}"'/lab06.svg?branch=master)](https://travis-ci.com/'"${GITHUB_USERNAME}"'/lab06)' -cx README.md
+##Настройка CPack
+```bash
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cat > CPackConfig.cmake <<EOF
+> include(InstallRequiredSystemLibraries)
+> EOF
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cat >> CPackConfig.cmake <<EOF
+> set(CPACK_PACKAGE_CONTACT ${GITHUB_EMAIL})
+set(CPACK_PACKAGE_VERSION_MAJOR \${PRINT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR \${PRINT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH \${PRINT_VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION_TWEAK \${PRINT_VERSION_TWEAK})
+set(CPACK_PACKAGE_VERSION \${PRINT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION_FILE \${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION)
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "static C++ library for printing")
+> EOF
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cat >> CPackConfig.cmake <<EOF
+> set(CPACK_RESOURCE_FILE_LICENSE \${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
+set(CPACK_RESOURCE_FILE_README \${CMAKE_CURRENT_SOURCE_DIR}/README.md)
+> EOF
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cat >> CPackConfig.cmake <<EOF
+> set(CPACK_RPM_PACKAGE_NAME "print-devel")
+set(CPACK_RPM_PACKAGE_LICENSE "MIT")
+set(CPACK_RPM_PACKAGE_GROUP "print")
+set(CPACK_RPM_CHANGELOG_FILE \${CMAKE_CURRENT_SOURCE_DIR}/ChangeLog.md)
+set(CPACK_RPM_PACKAGE_RELEASE 1)
+> EOF
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cat >> CPackConfig.cmake <<EOF
+> set(CPACK_DEBIAN_PACKAGE_NAME "libprint-dev")
+set(CPACK_DEBIAN_PACKAGE_PREDEPENDS "cmake >= 3.0")
+set(CPACK_DEBIAN_PACKAGE_RELEASE 1)
+> EOF
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cat >> CPackConfig.cmake <<EOF
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cat >> CPackConfig.cmake <<EOF
+> include(CPack)
+> EOF
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cat >> CMakeLists.txt <<EOF
+> include(CPackConfig.cmake)
+> EOF
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# gsed -i 's/lab05/lab06/g' README.md
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git add .
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git commit -m"added cpack config"
+[master da99064] added cpack config
+ 5 files changed, 49 insertions(+), 17 deletions(-)
+ create mode 100644 CPackConfig.cmake
+ create mode 100644 ChangeLog.md
+ create mode 100644 DESCRIPTION
 ```
-```sh
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git add .travis.yml
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git add README.md
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git commit -m"added CI"
-```
-```sh
-[master f0bd37c] added CI
- 2 files changed, 13 insertions(+)
- create mode 100644 .travis.yml
-root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git push origin master
+##Сборка проекта
+```bash
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git tag v0.1.0.0
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# 
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git push origin master --tags
 Username for 'https://github.com': Vladimir1209
 Password for 'https://Vladimir1209@github.com': 
-Перечисление объектов: 23, готово.
-Подсчет объектов: 100% (23/23), готово.
+remote: Repository not found.
+fatal: repository 'https://github.com/Vladimir1209/lab06/' not found
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git push origin master --tags
+Username for 'https://github.com': Vladimir1209
+Password for 'https://Vladimir1209@github.com': 
+remote: Repository not found.
+fatal: repository 'https://github.com/Vladimir1209/lab06/' not found
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# git push origin master --tags
+Username for 'https://github.com': Vladimir1209
+Password for 'https://Vladimir1209@github.com': 
+Перечисление объектов: 48, готово.
+Подсчет объектов: 100% (48/48), готово.
 При сжатии изменений используется до 4 потоков
-Сжатие объектов: 100% (17/17), готово.
-Запись объектов: 100% (23/23), 4.18 КиБ | 4.18 МиБ/с, готово.
-Всего 23 (изменений 4), повторно использовано 17 (изменений 2), повторно использовано пакетов 0
-remote: Resolving deltas: 100% (4/4), done.
+Сжатие объектов: 100% (29/29), готово.
+Запись объектов: 100% (48/48), 9.96 КиБ | 9.96 МиБ/с, готово.
+Всего 48 (изменений 14), повторно использовано 39 (изменений 11), повторно использовано пакетов 0
+remote: Resolving deltas: 100% (14/14), done.
 To https://github.com/Vladimir1209/lab06
  * [new branch]      master -> master
+ * [new tag]         v0.1.0.0 -> v0.1.0.0
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# travis login --auto
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# travis enable
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cmake -H. -B_build
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/student/Vladimir1209/workspace/projects/lab06/_build
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cmake -H. -B_build
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/student/Vladimir1209/workspace/projects/lab06/_build
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cmake --build _build
+[ 50%] Building CXX object CMakeFiles/print.dir/sources/print.cpp.o
+[100%] Linking CXX static library libprint.a
+[100%] Built target print
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cd _build
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06/_build# cpack -G "TGZ"
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: print
+CPack: - Install project: print []
+CPack: Create package
+CPack: - package: /home/student/Vladimir1209/workspace/projects/lab06/_build/print-0.1.0.0-Linux.tar.gz generated.
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06/_build# cd ..
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cmake -H. -B_build -DCPACK_GENERATOR="TGZ"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/student/Vladimir1209/workspace/projects/lab06/_build
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# cmake --build _build --target package
+[100%] Built target print
+Run CPack packaging tool...
+CPack: Create package using TGZ
+CPack: Install projects
+CPack: - Run preinstall target for: print
+CPack: - Install project: print []
+CPack: Create package
+CPack: - package: /home/student/Vladimir1209/workspace/projects/lab06/_build/print-0.1.0.0-Linux.tar.gz generated.
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# mkdir artifacts
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# mv _build/*.tar.gz artifacts
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# tree artifacts
+artifacts
+└── print-0.1.0.0-Linux.tar.gz
+
+1 directory, 1 file
+root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# popd
+/home/student/Vladimir1209/workspace
+root@LabPythonVM:/home/student/Vladimir1209/workspace# export LAB_NUMBER=06
+root@LabPythonVM:/home/student/Vladimir1209/workspace# git clone https://github.com/tp-labs/lab${LAB_NUMBER} tasks/lab${LAB_NUMBER}
+Клонирование в «tasks/lab06»...
+remote: Enumerating objects: 117, done.
+remote: Counting objects: 100% (37/37), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 117 (delta 35), reused 33 (delta 33), pack-reused 80 (from 1)
+Получение объектов: 100% (117/117), 1.33 МиБ | 5.63 МиБ/с, готово.
+Определение изменений: 100% (36/36), готово.
 ```
+##Report
 ```bash
 root@LabPythonVM:/home/student/Vladimir1209/workspace/projects/lab06# popd
 /home/student/Vladimir1209/workspace
-root@LabPythonVM:/home/student/Vladimir1209/workspace# export LAB_NUMBER=04
+root@LabPythonVM:/home/student/Vladimir1209/workspace# export LAB_NUMBER=06
 root@LabPythonVM:/home/student/Vladimir1209/workspace# git clone https://github.com/tp-labs/lab${LAB_NUMBER} tasks/lab${LAB_NUMBER}
 Клонирование в «tasks/lab06»...
-remote: Enumerating objects: 84, done.
-remote: Counting objects: 100% (3/3), done.
-remote: Compressing objects: 100% (3/3), done.
-remote: Total 84 (delta 0), reused 0 (delta 0), pack-reused 81 (from 1)
-Получение объектов: 100% (84/84), 2.11 МиБ | 7.32 МиБ/с, готово.
-Определение изменений: 100% (23/23), готово.
+remote: Enumerating objects: 117, done.
+remote: Counting objects: 100% (37/37), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 117 (delta 35), reused 33 (delta 33), pack-reused 80 (from 1)
+Получение объектов: 100% (117/117), 1.33 МиБ | 5.63 МиБ/с, готово.
+Определение изменений: 100% (36/36), готово.
 root@LabPythonVM:/home/student/Vladimir1209/workspace# mkdir reports/lab${LAB_NUMBER}
 root@LabPythonVM:/home/student/Vladimir1209/workspace# cp tasks/lab${LAB_NUMBER}/README.md reports/lab${LAB_NUMBER}/REPORT.md
 root@LabPythonVM:/home/student/Vladimir1209/workspace# cd reports/lab${LAB_NUMBER}
+root@LabPythonVM:/home/student/Vladimir1209/workspace/reports/lab06# edit REPORT.md
 ```
-
